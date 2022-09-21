@@ -737,8 +737,8 @@ class DataAug:
         new_label = deepcopy(label)
 
         
-        if random.random() < 0.5:
-            new_img, new_label = Mirror(new_img, label=new_label)
+        #if random.random() < 0.5:
+        #    new_img, new_label = Mirror(new_img, label=new_label)
         
 
         rd = random.random()

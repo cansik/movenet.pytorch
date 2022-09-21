@@ -3,16 +3,18 @@
 https://github.com/fire717
 """
 
+KEYPOINT_COUNT = 6
+
 cfg = {
     ##### Global Setting
-    'GPU_ID': '0',
+    'GPU_ID': '',
     "num_workers":8,
     "random_seed":42,
     "cfg_verbose":True,
 
     "save_dir": "output/",
 
-    "num_classes": 17,
+    "num_classes": KEYPOINT_COUNT,
     "width_mult":1.0,
     "img_size": 192, 
     

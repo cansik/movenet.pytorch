@@ -4,7 +4,8 @@ https://github.com/fire717
 """
 import numpy as np
 
-from config import cfg
+from config import cfg, KEYPOINT_COUNT
+
 
 def getDist(pre, labels):
         """
@@ -14,8 +15,8 @@ def getDist(pre, labels):
         return:
                 dist: [batchsize, 7]
         """
-        pre = pre.reshape([-1, 17, 2])
-        labels = labels.reshape([-1, 17, 2])
+        pre = pre.reshape([-1, KEYPOINT_COUNT, 2])
+        labels = labels.reshape([-1, KEYPOINT_COUNT, 2])
         res = np.power(pre[:,:,0]-labels[:,:,0],2)+np.power(pre[:,:,1]-labels[:,:,1],2)
         return res
 

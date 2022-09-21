@@ -82,7 +82,7 @@ def clipGradient(optimizer, grad_clip=1):
 #     # TODO: Implement sigmoid function
 #     return 1/(1 + np.exp(-x))
 
-def movenetDecode(data, kps_mask=None,mode='output', num_joints = 17, 
+def movenetDecode(data, kps_mask=None,mode='output', num_joints = 6,
                 img_size=192, hm_th=0.1):
     ##data [64, 7, 48, 48] [64, 1, 48, 48] [64, 14, 48, 48] [64, 14, 48, 48]
     #kps_mask [n, 7]
@@ -197,11 +197,11 @@ def movenetDecode(data, kps_mask=None,mode='output', num_joints = 17,
         data = data.detach().cpu().numpy()
         # print(data.shape)
         batch_size = data.shape[0]
-        
-        heatmaps = data[:,:17,:,:]
-        centers = data[:,17:18,:,:]
-        regs = data[:,18:52,:,:]
-        offsets = data[:,52:,:,:]
+
+        heatmaps = data[:,:num_joints,:,:]
+        centers = data[:,num_joints:num_joints + 1,:,:]
+        regs = data[:,num_joints + 1:num_joints * 3 + 1,:,:]
+        offsets = data[:,num_joints * 3 + 1:,:,:]
 
         # cv2.imwrite(os.path.join("_centers.jpg"), centers[0][0]*255)
         # cv2.imwrite(os.path.join("_heatmaps0.jpg"), heatmaps[0][0]*255)

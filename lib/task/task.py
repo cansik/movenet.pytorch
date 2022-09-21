@@ -27,10 +27,14 @@ class Task():
 
         self.cfg = cfg
 
-        if self.cfg['GPU_ID'] != '' :
+        if self.cfg['GPU_ID'] == 'mps':
+            self.device = torch.device("mps")
+        elif self.cfg['GPU_ID'] != '':
             self.device = torch.device("cuda")
         else:
             self.device = torch.device("cpu")
+
+        print(f"using device: {self.device}")
 
         self.model = model.to(self.device)
 
@@ -332,7 +336,7 @@ class Task():
 
             labels = labels.to(self.device)
             imgs = imgs.to(self.device)
-            kps_mask = kps_mask.to(self.device)
+            kps_mask = kps_mask.type(torch.float32).to(self.device)
 
             output = self.model(imgs)
 

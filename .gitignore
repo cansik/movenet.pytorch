@@ -13,3 +13,6 @@ __pycache__
 /output/show_imgs
 /output/detect
 
+venv
+.DS_Store
+.idea

@@ -8,8 +8,7 @@ import pickle
 import cv2
 import numpy as np
 
-
-
+from ..config import KEYPOINT_COUNT
 
 """
 segmentation格式取决于这个实例是一个单个的对象（即iscrowd=0，将使用polygons格式）
@@ -110,10 +109,10 @@ def main(img_dir, labels_path, output_name, output_img_dir):
 
 
             # merge bbox and keypoints to get max bbox 
-            keypoints = np.array(keypoints).reshape((17,3))
+            keypoints = np.array(keypoints).reshape((KEYPOINT_COUNT,3))
 
             keypoints_v = keypoints[keypoints[:,2]>0]
-            if len(keypoints_v)<8:#filter out keypoints not enough
+            if len(keypoints_v)< (KEYPOINT_COUNT / 3):#filter out keypoints not enough
                 continue
             min_key_x = np.min(keypoints_v[:,0])
             max_key_x = np.max(keypoints_v[:,0])
@@ -177,7 +176,7 @@ def main(img_dir, labels_path, output_name, output_img_dir):
                                        int(keypoints[kid][2])
                                       ])
             other_centers = []
-            other_keypoints = [[] for _ in range(17)]
+            other_keypoints = [[] for _ in range(KEYPOINT_COUNT)]
             for idx2,item2 in enumerate(v):
                 if item2['iscrowd'] != 0 or idx2==idx:
                     continue
@@ -194,8 +193,8 @@ def main(img_dir, labels_path, output_name, output_img_dir):
                     other_centers.append(save_center2)
 
                 keypoints2 = item2['keypoints']
-                keypoints2 = np.array(keypoints2).reshape((17,3))
-                for kid2 in range(17):
+                keypoints2 = np.array(keypoints2).reshape((KEYPOINT_COUNT,3))
+                for kid2 in range(KEYPOINT_COUNT):
                     if keypoints2[kid2][2]==0:
                         continue
                     kx = (keypoints2[kid2][0]+pad_left-new_x0)/new_w

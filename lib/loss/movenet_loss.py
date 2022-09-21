@@ -12,6 +12,7 @@ import numpy as np
 import torch.nn.functional as F
 import cv2
 
+from config import KEYPOINT_COUNT
 
 _img_size = 192
 _feature_map_size = _img_size//4
@@ -55,7 +56,7 @@ class MovenetLoss(torch.nn.Module):
         # self.range_weight_x = torch.from_numpy(np.array([[x for x in range(48)] for _ in range(48)]))
         # self.range_weight_y = self.range_weight_x.T 
 
-        self.boneloss = JointBoneLoss(17)
+        self.boneloss = JointBoneLoss(KEYPOINT_COUNT)
 
 
     def l1(self, pre, target,kps_mask):
@@ -153,6 +154,7 @@ class MovenetLoss(torch.nn.Module):
 
 
         _bone_idx = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[2,4]]
+        _bone_idx = [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5]]
 
         loss = 0
         for bone_id in _bone_idx:
@@ -331,10 +333,11 @@ class MovenetLoss(torch.nn.Module):
         #[64, 7, 48, 48] [64, 1, 48, 48] [64, 14, 48, 48] [64, 14, 48, 48]
         # print("target: ", [x.shape for x in target])#[64, 36, 48, 48]
         #print(weights.shape)# [14,]
-        heatmaps = target[:,:17,:,:]
-        centers = target[:,17:18,:,:]
-        regs = target[:,18:52,:,:]
-        offsets = target[:,52:,:,:]
+
+        heatmaps = target[:,:KEYPOINT_COUNT,:,:]
+        centers = target[:,KEYPOINT_COUNT:KEYPOINT_COUNT+1,:,:]
+        regs = target[:,KEYPOINT_COUNT+1:KEYPOINT_COUNT * 3 + 1,:,:]
+        offsets = target[:,KEYPOINT_COUNT * 3 + 1:,:,:]
 
 
         heatmap_loss = self.heatmapLoss(output[0], heatmaps, batch_size)
