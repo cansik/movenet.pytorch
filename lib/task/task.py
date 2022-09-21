@@ -55,9 +55,10 @@ class Task():
     def train(self, train_loader, val_loader):
 
         for epoch in range(self.cfg['epochs']):
-
             self.onTrainStep(train_loader, epoch)
-            self.onValidation(val_loader, epoch)
+
+            if epoch > 0 and epoch % self.cfg["validation_interval"] == 0:
+                self.onValidation(val_loader, epoch)
 
         self.onTrainEnd()
 
@@ -357,7 +358,7 @@ class Task():
             ### evaluate
 
             pre = movenetDecode(output,kps_mask, mode='output')
-            
+
             gt = movenetDecode(labels,kps_mask, mode='label')
 
 

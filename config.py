@@ -26,6 +26,7 @@ cfg = {
     'balance_data':False,
 
     'log_interval':10,  
+    'validation_interval':10,
     'save_best_only': True,
     
     'pin_memory': True,
@@ -33,7 +34,7 @@ cfg = {
 
     ##### Train Hyperparameters
     'learning_rate':0.001,#1.25e-4
-    'batch_size':64,
+    'batch_size':256,
     'epochs':120,
     'optimizer':'Adam',  #Adam  SGD
     'scheduler':'MultiStepLR-70,100-0.1', #default  SGDR-5-2  CVPR   step-4-0.8 MultiStepLR
