@@ -7,7 +7,7 @@ KEYPOINT_COUNT = 6
 
 cfg = {
     ##### Global Setting
-    'GPU_ID': '',
+    'GPU_ID': 'mps',
     "num_workers":8,
     "random_seed":42,
     "cfg_verbose":True,

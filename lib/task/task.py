@@ -399,7 +399,9 @@ class Task():
     def onTrainEnd(self):
         del self.model
         gc.collect()
-        torch.cuda.empty_cache()
+
+        if str(self.device) == "cuda":
+            torch.cuda.empty_cache()
 
         if self.cfg["cfg_verbose"]:
             printDash()
@@ -419,7 +421,7 @@ class Task():
             for batch_idx, (imgs, labels, kps_mask, img_names) in enumerate(val_loader):
                 labels = labels.to(self.device)
                 imgs = imgs.to(self.device)
-                kps_mask = kps_mask.to(self.device)
+                kps_mask = kps_mask.type(torch.float32).to(self.device)
 
                 output = self.model(imgs)
 
@@ -480,7 +482,7 @@ class Task():
             for i, (inputs, target, img_names) in enumerate(data_loader):
                 print("\r",str(i)+"/"+str(test_loader.__len__()),end="",flush=True)
 
-                inputs = inputs.cuda()
+                inputs = inputs.to(self.device)
 
                 output = model(inputs)
                 output = output.data.cpu().numpy()

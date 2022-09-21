@@ -46,7 +46,7 @@ class JointBoneLoss(torch.nn.Module):
 class MovenetLoss(torch.nn.Module):
     def __init__(self, use_target_weight=False, target_weight=[1]):
         super(MovenetLoss, self).__init__()
-        self.mse = torch.nn.MSELoss(size_average=True)
+        self.mse = torch.nn.MSELoss(reduction='mean')
         self.use_target_weight = use_target_weight
         self.target_weight=target_weight
 
@@ -320,10 +320,12 @@ class MovenetLoss(torch.nn.Module):
         # mask = torch.where(torch.gt(max_v,th), mask1, mask0)
         # print(mask)
         # b
-        y = max_id//w
-        x = max_id%w
+        y = max_id // w
+        x = max_id % w
+        # y = torch.floor(max_id / w)
+        # x = torch.floor((max_id - w) * (max_id / w))
 
-        return x,y
+        return x, y
 
 
     def forward(self, output, target, kps_mask):
