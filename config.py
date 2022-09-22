@@ -7,7 +7,7 @@ KEYPOINT_COUNT = 6
 
 cfg = {
     ##### Global Setting
-    'GPU_ID': 'mps',
+    'GPU_ID': '',
     "num_workers":8,
     "random_seed":42,
     "cfg_verbose":True,
@@ -34,7 +34,7 @@ cfg = {
 
     ##### Train Hyperparameters
     'learning_rate':0.001,#1.25e-4
-    'batch_size':256,
+    'batch_size':512,
     'epochs':120,
     'optimizer':'Adam',  #Adam  SGD
     'scheduler':'MultiStepLR-70,100-0.1', #default  SGDR-5-2  CVPR   step-4-0.8 MultiStepLR
