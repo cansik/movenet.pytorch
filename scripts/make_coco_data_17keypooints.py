@@ -8,7 +8,7 @@ import pickle
 import cv2
 import numpy as np
 
-from ..config import KEYPOINT_COUNT
+from config import KEYPOINT_COUNT
 
 """
 segmentation格式取决于这个实例是一个单个的对象（即iscrowd=0，将使用polygons格式）

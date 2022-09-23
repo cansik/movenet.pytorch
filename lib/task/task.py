@@ -501,7 +501,7 @@ class Task():
 
 
     def modelLoad(self,model_path, data_parallel = False):
-        self.model.load_state_dict(torch.load(model_path), strict=True)
+        self.model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')), strict=True)
         
         if data_parallel:
             self.model = torch.nn.DataParallel(self.model)
