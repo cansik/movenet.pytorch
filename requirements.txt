@@ -7,3 +7,4 @@ pandas
 albumentations
 torchsummary
 onnxruntime
+opencv-python
