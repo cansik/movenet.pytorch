@@ -31,7 +31,6 @@ def main(cfg):
 
 
     run_task.model.eval()
-    run_task.model
 
     #data type nchw
     dummy_input1 = torch.randn(1, 3, 192, 192)
