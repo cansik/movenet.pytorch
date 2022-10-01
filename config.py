@@ -7,7 +7,7 @@ KEYPOINT_COUNT = 6
 
 cfg = {
     ##### Global Setting
-    'GPU_ID': '',
+    'GPU_ID': '0',
     "num_workers":8,
     "random_seed":42,
     "cfg_verbose":True,
@@ -16,13 +16,19 @@ cfg = {
 
     "num_classes": KEYPOINT_COUNT,
     "width_mult":1.0,
-    "img_size": 192, 
+    "img_size": 192,
     
 
     ##### Train Setting
-    'img_path':"./data/cropped/imgs",
-    'train_label_path':'./data/cropped/train2017.json',
-    'val_label_path':'./data/cropped/val2017.json',
+    # 'img_path':"./data/cropped/imgs",
+    # 'train_label_path':'./data/cropped/train2017.json',
+    # 'val_label_path':'./data/cropped/val2017.json',
+
+    # settings for non-cropped movenet
+    'img_path':"./data/images",
+    'train_label_path':'./data/annotations/movenet_person_keypoints_train2017.json',
+    'val_label_path':'./data/annotations/movenet_person_keypoints_val2017.json',
+
     'balance_data':False,
 
     'log_interval':10,  
@@ -34,7 +40,7 @@ cfg = {
 
     ##### Train Hyperparameters
     'learning_rate':0.001,#1.25e-4
-    'batch_size':512,
+    'batch_size':64,
     'epochs':120,
     'optimizer':'Adam',  #Adam  SGD
     'scheduler':'MultiStepLR-70,100-0.1', #default  SGDR-5-2  CVPR   step-4-0.8 MultiStepLR

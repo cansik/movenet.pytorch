@@ -18,3 +18,4 @@ venv
 .idea
 *.pth
 data*/**
+output*/**

@@ -8,3 +8,4 @@ albumentations
 torchsummary
 onnxruntime
 opencv-python
+coco-lib
