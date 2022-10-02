@@ -53,7 +53,7 @@ cfg = {
 
 
     ##### Test
-    'test_img_path':"./data/cropped/imgs",
+    'test_img_path':"./data/images",
 
     #"../data/eval/imgs",
     #"../data/eval/imgs",
